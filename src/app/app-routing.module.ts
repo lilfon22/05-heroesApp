@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
-import { HeroesRoutingModule } from './heroes/heroes-routing.module';
 
 const routes: Routes = [
   {

@@ -1,5 +1,62 @@
 
-<h1>KELOKE</h1>
-<hr>
+<mat-drawer-container fullscreen>
+    <mat-sidenav #sidenav mode="push">
+        <mat-toolbar>
+            <span>Menú</span>
 
-<router-outlet></router-outlet>
+            <span class="spacer"></span>
+
+            <button mat-icon-button
+                    (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <a routerLink="./listado"
+                mat-list-item
+                (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>label</mat-icon>
+                <span>Listado de Héroes</span>
+            </a>
+
+            <a routerLink="./agregar"
+                mat-list-item
+                (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>add</mat-icon>
+                <span>Agregar Héroes</span>
+            </a>
+
+            <a routerLink="./buscar"
+                mat-list-item
+                (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>search</mat-icon>
+                <span>Buscar Héroes</span>
+            </a>
+
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-toolbar>
+        <button mat-icon-button
+                (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <span class="spacer"></span>
+            
+            <button mat-button>
+                Logout
+            </button>
+    </mat-toolbar>
+
+    <div class="container">
+
+    </div>
+
+    <router-outlet></router-outlet>
+
+</mat-drawer-container>
