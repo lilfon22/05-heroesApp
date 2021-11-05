@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Heroe, Publisher } from '../../interfaces/heroes.interface';
-import { HeroesService } from '../../services/heroes.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../../components/confirm/confirm.component';
+
+import { Heroe, Publisher } from '../../interfaces/heroes.interface';
+import { HeroesService } from '../../services/heroes.service';
+import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 
 @Component({
   selector: 'app-agregar',
   templateUrl: './agregar.component.html',
   styles: [`
-  img {
-    width: 100%;
-    border-radius: 5px;
-  }`]
+    img {
+      width: 100%;
+      border-radius: 5px;
+    }
+  `]
 })
 export class AgregarComponent implements OnInit {
 
@@ -26,23 +28,23 @@ export class AgregarComponent implements OnInit {
     {
       id: 'Marvel Comics',
       desc: 'Marvel - Comics'
-    }
-  ]
+    },
+  ];
 
   heroe: Heroe = {
     superhero: '',
-    publisher: Publisher.DCComics,
     alter_ego: '',
-    first_appearance: '',
     characters: '',
-    alt_img: ''
+    first_appearance: '',
+    publisher: Publisher.DCComics,
+    alt_img: '',
   }
 
-  constructor(private heroesService: HeroesService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private snackBar: MatSnackBar,
-              private dialog: MatDialog) { }
+  constructor( private heroesService: HeroesService,
+               private activatedRoute: ActivatedRoute,
+               private router: Router,
+               private snackBar: MatSnackBar,
+               public dialog: MatDialog ) { }
 
   ngOnInit(): void {
 
@@ -58,53 +60,58 @@ export class AgregarComponent implements OnInit {
 
   }
 
-  guardar () {
-
-    if(this.heroe.superhero.trim().length === 0) {
+  guardar() {
+    
+    if( this.heroe.superhero.trim().length === 0  ) {
       return;
     }
 
-    if(this.heroe.id) {
-      this.heroesService.actualizarHeroe(this.heroe)
-        .subscribe(heroe => this.mostrarSnackBar('Registro actualizado'));
-    } else {
-      this.heroesService.agregarHeroe(this.heroe)
-      .subscribe( heroe =>  {
-        this.router.navigate(['/heroes/editar', heroe.id ]);
-        this.mostrarSnackBar('Registro creado');
-      })
+    if ( this.heroe.id ) {
+      // Actualizar
+      this.heroesService.actualizarHeroe( this.heroe )
+        .subscribe( heroe => this.mostrarSnakbar('Registro actualizado'));
 
+    } else {
+      // Crear
+      this.heroesService.agregarHeroe( this.heroe )
+        .subscribe( heroe => {
+          this.router.navigate(['/heroes/editar', heroe.id ]);
+          this.mostrarSnakbar('Registro creado');
+        })
     }
-    
+
   }
 
   borrarHeroe() {
 
-    const dialog = this.dialog.open(ConfirmComponent, {
+    const dialog = this.dialog.open( ConfirmarComponent, {
       width: '250px',
       data: this.heroe
     });
 
     dialog.afterClosed().subscribe(
       (result) => {
-        if(result) {
-          
-          this.heroesService.borrarHeroe (this.heroe.id!)
-      .subscribe(resp => {
-        this.router.navigate(['/heroes']);
-        });
+
+        if( result ) {
+          this.heroesService.borrarHeroe( this.heroe.id! )
+            .subscribe( resp => {
+              this.router.navigate(['/heroes']);
+            });
+        }
+        
       }
-    }
-  )
-  
+    )
 
-}
 
-  mostrarSnackBar( mensaje: string ) {
 
-    this.snackBar.open(mensaje, 'OK!', {
+  }
+
+  mostrarSnakbar( mensaje: string ) {
+
+    this.snackBar.open( mensaje, 'ok!', {
       duration: 2500
     });
+
   }
 
 }

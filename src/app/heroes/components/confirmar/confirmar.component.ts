@@ -4,11 +4,11 @@ import { Heroe } from '../../interfaces/heroes.interface';
 
 @Component({
   selector: 'app-confirm',
-  templateUrl: './confirm.component.html'
+  templateUrl: './confirmar.component.html'
 })
-export class ConfirmComponent implements OnInit {
+export class ConfirmarComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<ConfirmComponent>,
+  constructor(private dialogRef: MatDialogRef<ConfirmarComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Heroe) { }
 
   ngOnInit(): void {
