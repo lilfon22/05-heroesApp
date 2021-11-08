@@ -5,7 +5,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     children: [
       {
         path: 'login',
@@ -23,10 +23,10 @@ const routes: Routes = [
   }
 ]
 
+
 @NgModule({
-  declarations: [],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild( routes )
   ],
   exports: [
     RouterModule

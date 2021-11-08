@@ -7,23 +7,25 @@ import { AuthGuard } from './auth/guards/auth.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
   },
   {
     path: 'heroes',
-    loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule),
-    canLoad: [AuthGuard]
+    loadChildren: () => import('./heroes/heroes.module').then( m => m.HeroesModule ),
+    canLoad: [ AuthGuard ],
+    canActivate: [ AuthGuard ]
   },
   {
-    path:'404',
+    path: '404',
     component: ErrorPageComponent
   },
   {
     path: '**',
-    //component: ErrorPageComponent
+    // component: ErrorPageComponent
     redirectTo: '404'
   }
 ]
+
 
 @NgModule({
   imports: [
@@ -34,3 +36,4 @@ const routes: Routes = [
   ]
 })
 export class AppRoutingModule { }
+
